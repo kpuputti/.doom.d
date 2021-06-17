@@ -52,3 +52,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(defconst is-osx (eq system-type 'darwin))
+(when is-osx
+  (setq mac-option-modifier nil
+        mac-command-modifier 'meta))
