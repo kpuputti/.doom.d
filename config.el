@@ -88,4 +88,5 @@
 (map! "M-o" #'ace-window
       "C-c g s" #'magit-status
       "C-c g b" #'magit-blame
-      "M-/" #'hippie-expand)
+      "M-/" #'hippie-expand
+      "C-c b" #'+default/new-buffer)
