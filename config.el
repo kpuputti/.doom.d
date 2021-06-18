@@ -53,7 +53,18 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(defconst is-osx (eq system-type 'darwin))
-(when is-osx
+(defconst is-mac (eq system-type 'darwin))
+
+(when is-mac
   (setq mac-option-modifier nil
         mac-command-modifier 'meta))
+
+(setq whitespace-style '(face tabs tab-mark trailing empty)
+      undo-tree-enable-undo-in-region t)
+
+(global-whitespace-mode +1)
+(global-anzu-mode +1)
+
+(map! "M-o" #'ace-window
+      "C-c g s" #'magit-status
+      "C-c g b" #'magit-blame)
