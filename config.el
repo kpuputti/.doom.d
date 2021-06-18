@@ -76,7 +76,9 @@
       ;; http://emacsredux.com/blog/2013/04/07/display-visited-files-path-in-the-frame-title/
       frame-title-format '((:eval (if (buffer-file-name)
                                       (abbreviate-file-name (buffer-file-name))
-                                    "%b"))))
+                                    "%b")))
+      magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
+      magit-bury-buffer-function  #'magit-restore-window-configuration)
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
