@@ -51,3 +51,4 @@
 
 (package! anzu)
 (package! ag)
+(package! restclient)
