@@ -78,6 +78,8 @@
                                       (abbreviate-file-name (buffer-file-name))
                                     "%b"))))
 
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 (global-whitespace-mode +1)
 (global-anzu-mode +1)
 (smartparens-global-strict-mode)
