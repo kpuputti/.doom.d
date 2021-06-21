@@ -50,5 +50,4 @@
 ;(unpin! t)
 
 (package! anzu)
-(package! ag)
 (package! restclient)
