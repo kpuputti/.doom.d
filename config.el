@@ -59,10 +59,7 @@
   (setq mac-option-modifier nil
         mac-command-modifier 'meta))
 
-(setq whitespace-style '(face tabs tab-mark trailing empty)
-      undo-tree-enable-undo-in-region t
-
-      hippie-expand-try-functions-list '(try-expand-dabbrev
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
                                          try-expand-dabbrev-all-buffers
                                          try-expand-dabbrev-from-kill
                                          try-complete-file-name-partially
@@ -76,19 +73,35 @@
       ;; http://emacsredux.com/blog/2013/04/07/display-visited-files-path-in-the-frame-title/
       frame-title-format '((:eval (if (buffer-file-name)
                                       (abbreviate-file-name (buffer-file-name))
-                                    "%b")))
-      magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
-      magit-bury-buffer-function  #'magit-restore-window-configuration)
+                                    "%b"))))
 
+;; Start initial Emacs frame in fullscreen
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-(global-whitespace-mode +1)
-(global-anzu-mode +1)
-(smartparens-global-strict-mode)
-(sp-use-paredit-bindings)
+(use-package! undo-tree
+  :config
+  (setq undo-tree-enable-undo-in-region t))
+
+(use-package! whitespace
+  :config
+  (setq whitespace-style '(face tabs tab-mark trailing empty))
+  :init
+  (global-whitespace-mode +1))
+
+(use-package! magit
+  :config
+  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
+        magit-bury-buffer-function  #'magit-restore-window-configuration))
+
+(use-package! anzu
+  :init
+  (global-anzu-mode +1))
+
+(use-package! smartparens
+  :init
+  (smartparens-global-strict-mode)
+  (sp-use-paredit-bindings))
 
 (map! "M-o" #'ace-window
-      "C-c g s" #'magit-status
-      "C-c g b" #'magit-blame
       "M-/" #'hippie-expand
       "C-c b" #'+default/new-buffer)
