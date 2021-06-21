@@ -78,27 +78,21 @@
 ;; Start initial Emacs frame in fullscreen
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-(use-package! undo-tree
-  :config
+(after! undo-tree
   (setq undo-tree-enable-undo-in-region t))
 
-(use-package! whitespace
-  :config
+(after! whitespace
   (setq whitespace-style '(face tabs tab-mark trailing empty))
-  :init
   (global-whitespace-mode +1))
 
-(use-package! magit
-  :config
+(after! magit
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
         magit-bury-buffer-function  #'magit-restore-window-configuration))
 
-(use-package! anzu
-  :init
+(after! anzu
   (global-anzu-mode +1))
 
-(use-package! smartparens
-  :init
+(after! smartparens
   (smartparens-global-strict-mode)
   (sp-use-paredit-bindings))
 
