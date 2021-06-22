@@ -96,6 +96,7 @@
   (smartparens-global-strict-mode)
   (sp-use-paredit-bindings))
 
-(map! "M-o" #'ace-window
+(map! "C-a" #'beginning-of-line
+      "M-o" #'ace-window
       "M-/" #'hippie-expand
       "C-c b" #'+default/new-buffer)
