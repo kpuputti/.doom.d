@@ -73,7 +73,10 @@
       ;; http://emacsredux.com/blog/2013/04/07/display-visited-files-path-in-the-frame-title/
       frame-title-format '((:eval (if (buffer-file-name)
                                       (abbreviate-file-name (buffer-file-name))
-                                    "%b"))))
+                                    "%b")))
+
+      ; https://github.com/hlissner/doom-emacs/issues/4158
+      +format-with-lsp nil)
 
 ;; Start initial Emacs frame in fullscreen
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
