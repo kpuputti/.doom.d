@@ -95,10 +95,6 @@
 (after! anzu
   (global-anzu-mode +1))
 
-(after! smartparens
-  (smartparens-global-strict-mode)
-  (sp-use-paredit-bindings))
-
 (map! "C-a" #'beginning-of-line
       "M-o" #'ace-window
       "M-/" #'hippie-expand
