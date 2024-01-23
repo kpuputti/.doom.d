@@ -79,7 +79,7 @@
       +format-with-lsp nil)
 
 ;; Start initial Emacs frame in fullscreen
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+;;(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 (after! undo-tree
   (setq undo-tree-enable-undo-in-region t))
