@@ -7,7 +7,7 @@
 
        :checkers
        (syntax +childframe)
-       (spell +everywhere)
+       spell
 
        :completion
        (company +childframe)

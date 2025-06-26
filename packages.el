@@ -5,9 +5,6 @@
 (package! restclient)
 (package! graphql-mode)
 (package! ag)
-
 (package! jsonrpc)
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
-
 (package! polymode)
+(package! gptel :recipe (:nonrecursive t))

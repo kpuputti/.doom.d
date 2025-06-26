@@ -50,15 +50,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.sqlx\\'" . sql-mode))
 
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
-
 (use-package! graphql-mode
   :defer t)
 
@@ -81,3 +72,23 @@
 
   (add-to-list 'auto-mode-alist
                '("\\.ts\\'" . poly-typescript-mode)))
+
+(defun my/copy-file-name ()
+  "Copy the base name (no path) of the current buffer's file to the clipboard.
+If the buffer is not visiting a file, display a message."
+  (interactive)
+  (let ((full-path (buffer-file-name)))
+    (if full-path
+        (let ((basename (file-name-nondirectory full-path)))
+          (kill-new basename)
+          (message "Copied file basename: %s" basename))
+      (message "Buffer is not visiting a file."))))
+
+(use-package! gptel
+  :config
+  (setq
+   gptel-api-key (lambda () (getenv "GEMINI_API_KEY"))
+   gptel-model 'gemini-2.5-pro
+   gptel-backend (gptel-make-gemini "Gemini"
+                   :key (lambda () (getenv "GEMINI_API_KEY"))
+                   :stream t)))
