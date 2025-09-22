@@ -48,41 +48,37 @@
       "M-/" #'hippie-expand
       "C-c b" #'+default/new-buffer)
 
+
+(use-package typescript-ts-mode
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
+  :config
+  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
+
 (add-to-list 'auto-mode-alist '("\\.sqlx\\'" . sql-mode))
 
 (use-package! graphql-mode
   :defer t)
 
-(after! polymode
-  (require 'graphql-mode)
+;; (after! polymode
+;;   (require 'graphql-mode)
 
-  (define-hostmode typescript-hostmode
-    :mode 'typescript-mode)
+;;   (define-hostmode typescript-hostmode
+;;     :mode 'typescript-ts-mode)
 
-  (define-innermode graphql-innermode
-    :mode 'graphql-mode
-    :head-matcher "gql`"
-    :tail-matcher "`"
-    :head-mode 'host
-    :tail-mode 'host)
+;;   (define-innermode graphql-innermode
+;;     :mode 'graphql-mode
+;;     :head-matcher "gql`"
+;;     :tail-matcher "`"
+;;     :head-mode 'host
+;;     :tail-mode 'host)
 
-  (define-polymode poly-typescript-mode
-    :hostmode 'typescript-hostmode
-    :innermodes '(graphql-innermode))
+;;   (define-polymode poly-typescript-mode
+;;     :hostmode 'typescript-hostmode
+;;     :innermodes '(graphql-innermode))
 
-  (add-to-list 'auto-mode-alist
-               '("\\.ts\\'" . poly-typescript-mode)))
-
-(defun my/copy-file-name ()
-  "Copy the base name (no path) of the current buffer's file to the clipboard.
-If the buffer is not visiting a file, display a message."
-  (interactive)
-  (let ((full-path (buffer-file-name)))
-    (if full-path
-        (let ((basename (file-name-nondirectory full-path)))
-          (kill-new basename)
-          (message "Copied file basename: %s" basename))
-      (message "Buffer is not visiting a file."))))
+;;   (add-to-list 'auto-mode-alist
+;;                '("\\.ts\\'" . poly-typescript-mode)))
 
 (use-package! gptel
   :config

@@ -31,14 +31,14 @@
 
        :lang
        emacs-lisp
-       javascript
-       json
-       lua
-       (markdown +grip)
+       (javascript +lsp +tree-sitter)
+       (json +lsp +tree-sitter)
+       (lua +lsp +tree-sitter)
+       (markdown +grip +tree-sitter)
        org
-       sh
-       web
-       yaml
+       (sh +lsp)
+       (web +lsp +tree-sitter)
+       (yaml +lsp +tree-sitter)
 
        :os
        (:if IS-MAC macos)
@@ -50,8 +50,10 @@
        editorconfig
        (eval +overlay)
        lookup
+       lsp
        magit
        terraform
+       tree-sitter
 
        :ui
        doom
