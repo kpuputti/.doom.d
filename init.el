@@ -31,6 +31,7 @@
 
        :lang
        emacs-lisp
+       (graphql +lsp +tree-sitter)
        (javascript +lsp +tree-sitter)
        (json +lsp +tree-sitter)
        (lua +lsp +tree-sitter)
