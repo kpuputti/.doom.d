@@ -48,6 +48,12 @@
       "M-/" #'hippie-expand
       "C-c b" #'+default/new-buffer)
 
+(use-package typescript-ts-mode
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
+  :config
+  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
+
 (add-to-list 'auto-mode-alist '("\\.sqlx\\'" . sql-mode))
 
 (use-package! graphql-mode
