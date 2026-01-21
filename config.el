@@ -54,6 +54,11 @@
   :config
   (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
 
+(after! markdown-mode
+  (add-to-list 'markdown-code-lang-modes '("ts" . typescript-ts-mode))
+  (add-to-list 'markdown-code-lang-modes '("typescript" . typescript-ts-mode))
+  (add-to-list 'markdown-code-lang-modes '("tsx" . tsx-ts-mode)))
+
 (add-to-list 'auto-mode-alist '("\\.sqlx\\'" . sql-mode))
 
 (use-package! graphql-mode
@@ -63,7 +68,7 @@
   :config
   (setq
    gptel-api-key (lambda () (getenv "GEMINI_API_KEY"))
-   gptel-model 'gemini-2.5-pro
+   gptel-model 'gemini-pro-latest
    gptel-backend (gptel-make-gemini "Gemini"
                    :key (lambda () (getenv "GEMINI_API_KEY"))
                    :stream t)
