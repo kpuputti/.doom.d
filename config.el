@@ -68,3 +68,8 @@
                    :key (lambda () (getenv "GEMINI_API_KEY"))
                    :stream t)
    gptel-include-reasoning nil))
+
+(use-package! claude-code-ide
+  :bind ("C-c C-'" . claude-code-ide-menu)
+  :config
+  (claude-code-ide-emacs-tools-setup))

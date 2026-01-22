@@ -46,6 +46,7 @@
 
        :term
        eshell
+       vterm
 
        :tools
        editorconfig
