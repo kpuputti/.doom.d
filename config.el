@@ -63,7 +63,7 @@
   :config
   (setq
    gptel-api-key (lambda () (getenv "GEMINI_API_KEY"))
-   gptel-model 'gemini-pro-latest
+   gptel-model 'gemini-3-pro-preview
    gptel-backend (gptel-make-gemini "Gemini"
                    :key (lambda () (getenv "GEMINI_API_KEY"))
                    :stream t)
