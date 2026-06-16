@@ -95,3 +95,10 @@
   :bind ("C-c C-'" . claude-code-ide-menu)
   :config
   (claude-code-ide-emacs-tools-setup))
+
+(use-package! agent-shell
+  :defer t
+  :bind ("C-c C-a" . agent-shell-anthropic-start-claude-code)
+  :config
+  (setq agent-shell-anthropic-authentication
+        (agent-shell-anthropic-make-authentication :login t)))
