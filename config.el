@@ -56,6 +56,19 @@
 
 (add-to-list 'auto-mode-alist '("\\.sqlx\\'" . sql-mode))
 
+(after! markdown-mode
+  (setq markdown-command "pandoc -f gfm -t html")
+  (defun my/markdown-preview-css ()
+    (let ((f (expand-file-name "markdown-preview.css" doom-user-dir)))
+      (if (file-readable-p f)
+          (format "<style>\n%s\n</style>"
+                  (with-temp-buffer (insert-file-contents f) (buffer-string)))
+        "")))
+  (defun my/markdown-refresh-header-content (&rest _)
+    (setq markdown-xhtml-header-content (my/markdown-preview-css)))
+  (advice-add 'markdown-preview :before #'my/markdown-refresh-header-content)
+  (my/markdown-refresh-header-content))
+
 (use-package! graphql-mode
   :defer t)
 
