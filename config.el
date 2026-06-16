@@ -54,6 +54,15 @@
   :config
   (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
 
+(after! lsp-mode
+  (dolist (dir '("[/\\\\]pgdata\\'"
+                 "[/\\\\]db/pgdata\\'"
+                 "[/\\\\]dist\\'"
+                 "[/\\\\]\\.next\\'"
+                 "[/\\\\]\\.cache\\'"))
+    (push dir lsp-file-watch-ignored-directories))
+  (setq lsp-file-watch-threshold 50000))
+
 (add-to-list 'auto-mode-alist '("\\.sqlx\\'" . sql-mode))
 
 (after! markdown-mode
