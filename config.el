@@ -102,5 +102,6 @@
   :config
   ;; Replay the whole conversation when resuming a session, not just the title.
   (setq agent-shell-session-restore-verbosity 'full)
+  (setq agent-shell-show-welcome-message nil)
   (setq agent-shell-anthropic-authentication
         (agent-shell-anthropic-make-authentication :login t)))
