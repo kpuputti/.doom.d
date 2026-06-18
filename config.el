@@ -100,5 +100,7 @@
   :defer t
   :bind ("C-c C-a" . agent-shell-anthropic-start-claude-code)
   :config
+  ;; Replay the whole conversation when resuming a session, not just the title.
+  (setq agent-shell-session-restore-verbosity 'full)
   (setq agent-shell-anthropic-authentication
         (agent-shell-anthropic-make-authentication :login t)))
