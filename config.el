@@ -55,6 +55,8 @@
   (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!))
 
 (after! lsp-mode
+  (setq lsp-clients-typescript-max-ts-server-memory 8192)
+  (setq lsp-clients-typescript-prefer-use-project-ts-server t)
   (dolist (dir '("[/\\\\]pgdata\\'"
                  "[/\\\\]db/pgdata\\'"
                  "[/\\\\]dist\\'"
