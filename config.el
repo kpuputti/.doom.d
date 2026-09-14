@@ -56,7 +56,6 @@
 
 (after! lsp-mode
   (setq lsp-clients-typescript-max-ts-server-memory 8192)
-  (setq lsp-clients-typescript-prefer-use-project-ts-server t)
   (dolist (dir '("[/\\\\]pgdata\\'"
                  "[/\\\\]db/pgdata\\'"
                  "[/\\\\]dist\\'"
@@ -83,27 +82,35 @@
 (use-package! graphql-mode
   :defer t)
 
-(use-package! gptel
-  :config
-  (setq
-   gptel-api-key (lambda () (getenv "GEMINI_API_KEY"))
-   gptel-model 'gemini-3-pro-preview
-   gptel-backend (gptel-make-gemini "Gemini"
-                   :key (lambda () (getenv "GEMINI_API_KEY"))
-                   :stream t)
-   gptel-include-reasoning nil))
-
-(use-package! claude-code-ide
-  :bind ("C-c C-'" . claude-code-ide-menu)
-  :config
-  (claude-code-ide-emacs-tools-setup))
+(defun my/agent-shell-switch-buffer-in-project ()
+  "Switch between agent-shell buffers rooted in the current project.
+Shows the per-buffer session title, unlike the generic buffer switcher."
+  (interactive)
+  (let* ((root (expand-file-name
+                (if-let* ((proj (project-current)))
+                    (project-root proj)
+                  default-directory)))
+         (buffers (seq-filter
+                   (lambda (b)
+                     (file-in-directory-p
+                      (buffer-local-value 'default-directory b) root))
+                   (agent-shell-buffers))))
+    (switch-to-buffer
+     (agent-shell--read-shell-buffer
+      :prompt "Switch to agent-shell buffer: "
+      :buffers (or buffers
+                   (user-error "No agent-shell buffers in %s" root))
+      :force-short-names t))))
 
 (use-package! agent-shell
   :defer t
-  :bind ("C-c C-a" . agent-shell-anthropic-start-claude-code)
+  :bind (("C-c C-a" . agent-shell-anthropic-start-claude-code)
+         ("C-c C-b" . my/agent-shell-switch-buffer-in-project))
   :config
   ;; Replay the whole conversation when resuming a session, not just the title.
   (setq agent-shell-session-restore-verbosity 'full)
   (setq agent-shell-show-welcome-message nil)
+  ;; Graphical SVG header clips the last glyph of the top row; text is clean.
+  (setq agent-shell-header-style 'text)
   (setq agent-shell-anthropic-authentication
         (agent-shell-anthropic-make-authentication :login t)))
