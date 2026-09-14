@@ -102,11 +102,21 @@ Shows the per-buffer session title, unlike the generic buffer switcher."
                    (user-error "No agent-shell buffers in %s" root))
       :force-short-names t))))
 
+(defun my/agent-shell-q (n)
+  "Insert `q' at the editable prompt; run `quit-window' in read-only output.
+agent-shell binds `q' to `quit-window' for evil users, whose insert state
+shadows it; without evil that makes `q' untypable at the prompt."
+  (interactive "p")
+  (if (get-text-property (point) 'read-only)
+      (quit-window)
+    (self-insert-command n ?q)))
+
 (use-package! agent-shell
   :defer t
   :bind (("C-c C-a" . agent-shell-anthropic-start-claude-code)
          ("C-c C-b" . my/agent-shell-switch-buffer-in-project))
   :config
+  (define-key agent-shell-mode-map (kbd "q") #'my/agent-shell-q)
   ;; Replay the whole conversation when resuming a session, not just the title.
   (setq agent-shell-session-restore-verbosity 'full)
   (setq agent-shell-show-welcome-message nil)
